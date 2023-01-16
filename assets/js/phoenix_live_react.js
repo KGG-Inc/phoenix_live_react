@@ -15,7 +15,7 @@ const render = function(el, target, componentClass, additionalProps = {}, previo
 
 const initLiveReactElement = function(el, additionalProps) {
   const target = el.nextElementSibling;
-  const componentClass = Array.prototype.reduce.call(el.dataset.liveReactClass.split('.'), (acc, el) => { return acc[el] }, window);
+  const componentClass = eval(el.dataset.liveReactClass);
   render(el, target, componentClass, additionalProps);
   return {target: target, componentClass: componentClass};
 }
