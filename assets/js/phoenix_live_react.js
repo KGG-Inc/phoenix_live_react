@@ -8,14 +8,14 @@ const render = function(el, target, componentClass, additionalProps = {}, previo
   } else {
     props = {...props, ...additionalProps}
   }
-  const reactElement = React.createElement("div", props);
+  const reactElement = React.createElement(componentClass, props);
   ReactDOM.render(reactElement, target);
   return props;
 }
 
 const initLiveReactElement = function(el, additionalProps) {
   const target = el.nextElementSibling;
-  const componentClass = el.dataset.liveReactClass;
+  const componentClass = Array.prototype.reduce.call(el.dataset.liveReactClass.split('.'), (acc, el) => { return acc[el] }, window);
   render(el, target, componentClass, additionalProps);
   return {target: target, componentClass: componentClass};
 }
